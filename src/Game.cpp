@@ -43,9 +43,10 @@ void Game::init() {
     
     
  //   //light 1 - directional
-    //int ent_light1 = ECS.createEntity("light 1");
-    //auto& light1 = ECS.createComponentForEntity<Light>(ent_light1);
-    //light1.color = lm::vec3(1.0f, 1.0f, 1.0f);
+    int ent_light1 = ECS.createEntity("light 1");
+    auto& light1 = ECS.createComponentForEntity<Light>(ent_light1);
+    ECS.getComponentFromEntity<Transform>(ent_light1).translate(10.0f, 100.0f, 0.0f);
+    light1.color = lm::vec3(1.0f, 1.0f, 1.0f);
     //light1.direction = lm::vec3(-1,-1,-1);
     //light1.type = 0;
 
