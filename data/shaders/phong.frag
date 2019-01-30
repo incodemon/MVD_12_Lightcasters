@@ -43,7 +43,7 @@ void main(){
 	//loop lights
 	for (int i = 0; i < u_num_lights; i++){
 
-		vec3 L = normalize(lights[i].position / v_vertex_world_pos); // for directional light
+		vec3 L = normalize(lights[i].position - v_vertex_world_pos);
 		vec3 N = normalize(v_normal); //normal
 		vec3 R = reflect(-L,N); //reflection vector
 		vec3 V = normalize(v_cam_dir); //to camera
