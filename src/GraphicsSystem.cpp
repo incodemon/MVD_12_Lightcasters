@@ -95,7 +95,7 @@ void GraphicsSystem::renderMeshComponent_(Mesh& comp) {
 void GraphicsSystem::renderEnvironment_() {
     
 	//render cubemap only if we have both a shader, texture, and geometry
-	if (!environment_program_ || !environment_tex_ || !cube_map_geom_ < 0) return;
+	if (!environment_program_ || !environment_tex_ || cube_map_geom_ < 0) return;
 
     //set shader
     useShader(environment_program_);
