@@ -55,8 +55,8 @@ void Game::init() {
     //ECS.getComponentFromEntity<Transform>(ent_light2).translate(-10.0f, 3.0f, -10.0f);
     //auto& light2 = ECS.createComponentForEntity<Light>(ent_light2);
     //light2.color = lm::vec3(1.0f, 0.0f, 0.0f);
-    //light2.linear_att = 0.09f;
-    //light2.quadratic_att = 0.032f;
+    //light2.linear_att = 0.022f;
+    //light2.quadratic_att = 0.0019f;
     //light2.type = 1;
 
  //   //light 3 - spotlight
