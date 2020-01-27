@@ -22,6 +22,13 @@ uniform sampler2D u_diffuse_map;
 struct PointLight {
 	vec3 position;
 	vec3 color;
+	vec3 direction;
+	int type;
+	float linear_att;
+	float quadratic_att;
+	float spot_inner_cosine;
+	float spot_outer_cosine;
+
 
 };
 const int MAX_LIGHTS = 8;
@@ -43,11 +50,33 @@ void main(){
 	//loop lights
 	for (int i = 0; i < u_num_lights; i++){
 
-		vec3 L = normalize(lights[i].position - v_vertex_world_pos); //direction to light
+		float attenuation = 1.0;
+		float spot_cone_intensity = 1.0;
+		//vec3 L = normalize(lights[i].position - v_vertex_world_pos); //direction to light
+		
+		vec3 L = normalize(-lights[i].direction );
+
 		vec3 N = normalize(v_normal); //normal
 		vec3 R = reflect(-L,N); //reflection vector
 		vec3 V = normalize(v_cam_dir); //to camera
-            
+        
+	if(lights[i].type > 0){ //if either point or spot
+			vec3 point_to_light = normalize(lights[i].position - v_vertex_world_pos);
+			L = normalize(point_to_light);
+			if(lights[i].type == 2){ //if spot
+			 spot_cone_intensity = 0.0;
+				vec3 D = normalize(lights[i].direction);
+				float cos_theta = dot(D,-L);
+				if(cos_theta > lights[i].spot_inner_cosine)
+					spot_cone_intensity = 1.0;
+					
+			}
+
+
+			float dist = length(point_to_light);
+
+			attenuation = 1 / (1.0 + (lights[i].linear_att * dist) + (lights[i].quadratic_att * dist * dist));
+		}
 		//diffuse color
 		float NdotL = max(0.0, dot(N, L));
 		vec3 diffuse_color = NdotL * mat_diffuse * lights[i].color;
@@ -58,7 +87,7 @@ void main(){
 		vec3 specular_color = RdotV * lights[i].color * u_specular;
 
 		//final color
-        final_color += (diffuse_color + specular_color);
+        final_color += (diffuse_color + specular_color) * attenuation * spot_cone_intensity;
 	}
 
 	fragColor = vec4(final_color, 1.0);

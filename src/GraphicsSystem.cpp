@@ -189,6 +189,32 @@ void GraphicsSystem::setMaterialUniforms() {
         GLint u_light_col = glGetUniformLocation(shader_->program, light_color_name.c_str());
         if (u_light_col != -1) glUniform3fv(u_light_col, 1, lights[i].color.value_);
        
+		//direction
+		std::string light_direction_name = "lights[" + std::to_string(i) + "].direction";
+		GLint u_light_dir = glGetUniformLocation(shader_->program, light_direction_name.c_str());
+		if (u_light_dir != -1) glUniform3fv(u_light_dir,1, lights[i].direction.value_);
+
+		std::string light_type_name = "lights[" + std::to_string(i) + "].type";
+		GLint u_light_type = glGetUniformLocation(shader_->program, light_type_name.c_str());
+		if (u_light_type != -1) glUniform1i(u_light_type, lights[i].type);
+		
+		//fer el mateix per les llums de tipus attenuation
+		std::string light_lin_name = "lights[" + std::to_string(i) + "].linear_att";
+		GLint u_light_lin = glGetUniformLocation(shader_->program, light_lin_name.c_str());
+		if (u_light_lin != -1) glUniform1i(u_light_lin, lights[i].linear_att);
+
+		std::string light_quad_name = "lights[" + std::to_string(i) + "].quadratic_att";
+		GLint u_light_quad = glGetUniformLocation(shader_->program, light_quad_name.c_str());
+		if (u_light_quad != -1) glUniform1i(u_light_quad, lights[i].quadratic_att);
+
+
+		std::string light_innercone_name = "lights[" + std::to_string(i) + "].spot_inner_cosine";
+		GLint u_light_innercone = glGetUniformLocation(shader_->program, light_innercone_name.c_str());
+		if (u_light_innercone != -1) glUniform1f(u_light_innercone, cos(lights[i].spot_inner * DEG2RAD / 2));
+
+		std::string light_outer_name = "lights[" + std::to_string(i) + "].spot_outer_cosine";
+		GLint u_light_outercone = glGetUniformLocation(shader_->program, light_outer_name.c_str());
+		if (u_light_outercone != -1) glUniform1f(u_light_outercone, cos(lights[i].spot_outer * DEG2RAD / 2));
     }
 }
 

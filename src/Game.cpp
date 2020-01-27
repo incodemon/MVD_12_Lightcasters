@@ -45,31 +45,31 @@ void Game::init() {
  //   //light 1 - directional
     int ent_light1 = ECS.createEntity("light 1");
     auto& light1 = ECS.createComponentForEntity<Light>(ent_light1);
-    ECS.getComponentFromEntity<Transform>(ent_light1).translate(10.0f, 100.0f, 0.0f);
+    //ECS.getComponentFromEntity<Transform>(ent_light1).translate(10.0f, 100.0f, 0.0f);
     light1.color = lm::vec3(1.0f, 1.0f, 1.0f);
-    //light1.direction = lm::vec3(-1,-1,-1);
-    //light1.type = 0;
+    light1.direction = lm::vec3(-1,-1,-1);
+    light1.type = 0;
 
- //   //light 2 - point
-    //int ent_light2 = ECS.createEntity("light 2");
-    //ECS.getComponentFromEntity<Transform>(ent_light2).translate(-10.0f, 3.0f, -10.0f);
-    //auto& light2 = ECS.createComponentForEntity<Light>(ent_light2);
-    //light2.color = lm::vec3(1.0f, 0.0f, 0.0f);
-    //light2.linear_att = 0.022f;
-    //light2.quadratic_att = 0.0019f;
-    //light2.type = 1;
+    //light 2 - point
+    int ent_light2 = ECS.createEntity("light 2");
+    ECS.getComponentFromEntity<Transform>(ent_light2).translate(-10.0f, 3.0f, -10.0f);
+    auto& light2 = ECS.createComponentForEntity<Light>(ent_light2);
+    light2.color = lm::vec3(1.0f, 0.0f, 0.0f);
+    light2.linear_att = 0.022f;
+    light2.quadratic_att = 0.0019f;
+    light2.type = 1;
 
- //   //light 3 - spotlight
- //   int ent_light3 = ECS.createEntity("light 3");
- //   ECS.getComponentFromEntity<Transform>(ent_light3).translate(10.0f, 20.0f, -10.0f);
- //   auto& light3 = ECS.createComponentForEntity<Light>(ent_light3);
- //   light3.direction = lm::vec3(0.0, -1.0, 0.0);
- //   light3.color = lm::vec3(0.0f, 1.0f, 0.0f);
- //   light3.type = 2;
- //   light3.linear_att = 0.022f;
- //   light3.quadratic_att = 0.0019f;
- //   light3.spot_inner = 30.0f;
-	//light3.spot_outer = 40.0f;    
+    //light 3 - spotlight
+    int ent_light3 = ECS.createEntity("light 3");
+    ECS.getComponentFromEntity<Transform>(ent_light3).translate(10.0f, 20.0f, -10.0f);
+    auto& light3 = ECS.createComponentForEntity<Light>(ent_light3);
+    light3.direction = lm::vec3(0.0, -1.0, 0.0);
+    light3.color = lm::vec3(0.0f, 1.0f, 0.0f);
+    light3.type = 2;
+    light3.linear_att = 0.022f;
+    light3.quadratic_att = 0.0019f;
+    light3.spot_inner = 30.0f;
+	light3.spot_outer = 40.0f;    
 
 	
 
