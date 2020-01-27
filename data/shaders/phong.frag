@@ -60,16 +60,19 @@ void main(){
 		vec3 R = reflect(-L,N); //reflection vector
 		vec3 V = normalize(v_cam_dir); //to camera
         
-	if(lights[i].type > 0){ //if either point or spot
+		if(lights[i].type > 0){ //if either point or spot
 			vec3 point_to_light = normalize(lights[i].position - v_vertex_world_pos);
 			L = normalize(point_to_light);
 			if(lights[i].type == 2){ //if spot
-			 spot_cone_intensity = 0.0;
+				spot_cone_intensity = 0.0;
 				vec3 D = normalize(lights[i].direction);
 				float cos_theta = dot(D,-L);
-				if(cos_theta > lights[i].spot_inner_cosine)
-					spot_cone_intensity = 1.0;
-					
+				float y = lights[i].spot_outer_cosine;
+				float o = lights[i].spot_inner_cosine;
+
+				
+				spot_cone_intensity = (cos_theta - y)/(o - y);
+				spot_cone_intensity = clamp(spot_cone_intensity, 0.0, 1.0);
 			}
 
 
